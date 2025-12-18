@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>byScript.io | Dashboard (Premium UX Revision)</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="js/data.js" defer></script>
+  <script src="js/helpers.js" defer></script>
+  <script src="js/modals.js" defer></script>
+  <script src="js/panels.js" defer></script>
+  <script src="js/exchange.js" defer></script>
+  <script src="js/wizard.js" defer></script>
+  <script src="js/app.js" defer></script>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#">
+        <span class="mark" aria-hidden="true"><i></i></span>
+        <span>byScript.io</span>
+      </a>
+
+      <nav class="nav" aria-label="Primary">
+        <a class="active" href="#">Dashboard</a>
+        <a href="#">Subscription</a>
+        <a href="#">Affiliate</a>
+        <a href="#">Documentation</a>
+        <a href="#">Announcement</a>
+        <a href="#">Strategy Backtest</a>
+        <a href="#">Campaigns</a>
+      </nav>
+
+      <div class="right">
+        <span class="pill accent">Special Lifetime</span>
+        <span class="pill">Edwin Ardyanto</span>
+      </div>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <section class="grid-header">
+      <div class="card">
+        <div class="card-inner">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;align-items:stretch;">
+            <div class="stat" style="background:rgba(0,0,0,.28);box-shadow:var(--shadow2);">
+              <div class="k">PnL Today</div>
+              <div class="v" style="display:flex;align-items:center;gap:8px;">$1,842 <span class="pill accent" style="padding:4px 8px;font-size:11px;font-weight:850;">+3.4%</span></div>
+              <div class="h">Realtime snapshot</div>
+            </div>
+            <div class="stat" style="background:rgba(0,0,0,.28);box-shadow:var(--shadow2);">
+              <div class="k">PnL 7D</div>
+              <div class="v">$12,430</div>
+              <div class="h">Performance weekly</div>
+            </div>
+            <div class="stat" style="background:rgba(0,0,0,.28);box-shadow:var(--shadow2);">
+              <div class="k">PnL 30D</div>
+              <div class="v">$42,120</div>
+              <div class="h">Momentum monthly</div>
+            </div>
+            <div class="stat" style="grid-column: span 2; min-height:110px; background:rgba(0,0,0,.30); box-shadow:var(--shadow2);">
+              <div class="k" style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+                <span>Wallet Balance</span>
+                <span class="pill" style="background:rgba(104,254,29,.12);border-color:rgba(104,254,29,.30);">+$2,150</span>
+              </div>
+              <div class="v" style="margin-top:6px;">$18,420</div>
+              <div class="h" style="margin-top:2px;">Mock trend (static)</div>
+              <div style="margin-top:10px;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:8px;background:rgba(15,22,32,.65);">
+                <svg viewBox="0 0 240 70" role="img" aria-label="Wallet balance trend" style="width:100%;height:70px;">
+                  <defs>
+                    <linearGradient id="wbFill" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="rgba(104,254,29,.25)"></stop>
+                      <stop offset="100%" stop-color="rgba(104,254,29,0)"></stop>
+                    </linearGradient>
+                  </defs>
+                  <path d="M0 55 C30 48 40 30 70 34 C95 38 110 18 140 26 C165 33 180 14 210 20 C228 24 238 16 240 14 L240 70 L0 70 Z" fill="url(#wbFill)" opacity="0.8"></path>
+                  <path d="M0 55 C30 48 40 30 70 34 C95 38 110 18 140 26 C165 33 180 14 210 20 C228 24 238 16 240 14" stroke="var(--accent)" stroke-width="2.4" fill="none" stroke-linecap="round"></path>
+                  <circle cx="210" cy="20" r="3.5" fill="var(--accent)" stroke="rgba(255,255,255,.35)" stroke-width="1"></circle>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="actions" style="margin-top:18px;">
+            <button class="btn primary" type="button" onclick="openAutotraderWizard()">Add Autotrader</button>
+            <button class="btn" type="button" onclick="openExchangeConnect()">Add Exchange</button>
+            <button class="btn danger" type="button" onclick="toast('Open: Security / API Permissions')">Security</button>
+          </div>
+          <div class="hintbar">
+            <b>Flow Exchange:</b> Add Exchange akan membuka portal <span class="kbd">exchange.byscript.io</span> (di luar app). Kamu copy <b>Unique Code</b> lalu pakai itu sebagai <b>Name</b> di portal. Setelah selesai, balik dan klik <b>I already connected my exchange</b> untuk verifikasi.
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="stats" id="statsGrid">
+          <!-- stats injected -->
+        </div>
+      </div>
+    </section>
+
+    <div class="tabs" role="tablist" aria-label="Dashboard sections">
+      <button class="tab active" role="tab" aria-selected="true" data-tab="autotraders" onclick="switchPanel('autotraders')">Autotraders</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="exchanges" onclick="switchPanel('exchanges')">Exchanges</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="activity" onclick="switchPanel('activity')">Activity</button>
+    </div>
+
+    <section class="filters" aria-label="Filters">
+      <div class="field">
+        <label for="q">Search</label>
+        <input id="q" placeholder="pair, autotrader id, exchange..." oninput="applyFilters()" />
+      </div>
+
+      <div class="field">
+        <label for="status">Status</label>
+        <select id="status" onchange="applyFilters()">
+          <option value="all">All</option>
+          <option value="ACTIVE">ACTIVE</option>
+          <option value="STOPPED">STOPPED</option>
+          <option value="FINISHED">FINISHED</option>
+          <option value="FAILED">FAILED</option>
+          <option value="CANCELLED">CANCELLED</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="exchange">Exchange</label>
+        <select id="exchange" onchange="applyFilters()">
+          <option value="all">All</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="range">Range</label>
+        <select id="range" onchange="toast('Filter range applied (mock)')">
+          <option>24H</option>
+          <option selected>7D</option>
+          <option>30D</option>
+          <option>Custom</option>
+        </select>
+      </div>
+
+      <button class="btn small ghost" type="button" onclick="resetFilters()">Reset</button>
+    </section>
+
+    <!-- Panels -->
+    <section class="panel active" id="panel-autotraders">
+      <div class="card table-card">
+        <div class="table-head">
+          <div>
+            <h2>Autotraders</h2>
+            <div class="muted">Klik row untuk detail. Aksi cepat ada di kolom Actions.</div>
+          </div>
+          <div class="muted">Showing: <span id="autoCount">0</span></div>
+        </div>
+        <div class="table-wrap">
+          <table aria-label="Autotrader table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Pair</th>
+                <th>Trading Plan</th>
+                <th>Status</th>
+                <th>Exchange</th>
+                <th class="rightAlign">Budget</th>
+                <th class="rightAlign">Initial</th>
+                <th>AutoComp</th>
+                <th>Last Signal</th>
+                <th class="rightAlign">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="autotbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="panel-exchanges">
+      <div class="card table-card">
+        <div class="table-head">
+          <div>
+            <h2>Connected Exchanges</h2>
+            <div class="muted">Satu exchange bisa Spot atau Futures. Nama harus unik untuk verifikasi portal.</div>
+          </div>
+          <button class="btn small primary" type="button" onclick="openExchangeConnect()">Add Exchange</button>
+        </div>
+        <div class="table-wrap">
+          <table aria-label="Exchange table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Market</th>
+                <th>Provider</th>
+                <th>Connected</th>
+                <th class="rightAlign">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="exbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="panel-activity">
+      <div class="card table-card">
+        <div class="table-head">
+          <div>
+            <h2>Activity</h2>
+            <div class="muted">Trade history yang bisa dicari dan difilter.</div>
+          </div>
+          <div class="muted">Showing: <span id="actCount">0</span></div>
+        </div>
+        <div class="table-wrap">
+          <table aria-label="Activity table">
+            <thead>
+              <tr>
+                <th>Pair</th>
+                <th>Action</th>
+                <th>Status</th>
+                <th class="rightAlign">Price</th>
+                <th class="rightAlign">Profit</th>
+                <th>Autotrader</th>
+                <th>Exchange</th>
+                <th>Time</th>
+              </tr>
+            </thead>
+            <tbody id="acttbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Modal: Autotrader Wizard -->
+  <div class="overlay" id="mWizard" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Add Autotrader Wizard">
+      <div class="modal-h">
+        <div class="t"><span class="dot" aria-hidden="true"></span> Add Autotrader</div>
+        <button class="x" type="button" onclick="closeModal('mWizard')">✕</button>
+      </div>
+      <div class="modal-b">
+        <div class="stepper" id="wizStepper"></div>
+        <div id="wizBody"></div>
+      </div>
+      <div class="modal-f">
+        <button class="btn ghost" type="button" onclick="wizardBack()">Back</button>
+        <button class="btn" type="button" onclick="closeModal('mWizard')">Cancel</button>
+        <button class="btn primary" type="button" id="wizNextBtn" onclick="wizardNext()">Next</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Connect Exchange Flow (portal outside byScript) -->
+  <div class="overlay" id="mExchange" aria-hidden="true">
+    <div class="modal sm" role="dialog" aria-modal="true" aria-label="Connect Exchange">
+      <div class="modal-h">
+        <div class="t"><span class="dot" aria-hidden="true"></span> Connect Exchange</div>
+        <button class="x" type="button" onclick="closeModal('mExchange')">✕</button>
+      </div>
+      <div class="modal-b" id="exBody"></div>
+      <div class="modal-f" id="exFoot"></div>
+    </div>
+  </div>
+
+  <!-- Modal: Add Trading Plan -->
+  <div class="overlay" id="mPlan" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-header">
+        <div class="mh-left">
+          <div class="dot" aria-hidden="true"></div>
+          <h3 class="modal-title" id="modalTitle">Add New Trading Plan</h3>
+        </div>
+        <button class="iconbtn" id="closeX" type="button" aria-label="Close">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M18 6L6 18M6 6l12 12" stroke="rgba(233,238,247,.85)" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <h2 class="subhead">Create Trading Plan Configuration</h2>
+        <p class="subdesc">Buat plan baru tanpa keluar wizard. Plan akan muncul di list dan bisa langsung dipilih.</p>
+
+        <div class="field">
+          <label for="tpName">Name</label>
+          <input class="input" id="tpName" placeholder="Enter trading plan name" autocomplete="off" />
+        </div>
+
+        <div class="grid" style="margin-top:12px">
+          <div class="field">
+            <label for="marketType">Market Type</label>
+            <select class="select" id="marketType">
+              <option value="FUTURES">FUTURES</option>
+              <option value="SPOT">SPOT</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="levType">Leverage Type</label>
+            <select class="select" id="levType">
+              <option value="ISOLATED">ISOLATED</option>
+              <option value="CROSS">CROSS</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="levVal">Leverage</label>
+            <select class="select" id="levVal">
+              <option>1</option><option>2</option><option>3</option><option selected>5</option><option>10</option><option>20</option><option>50</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field" style="flex:1">
+            <label>Pairs</label>
+            <div class="pairbar" id="pairbar">
+              <svg class="searchIcon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="rgba(233,238,247,.70)" stroke-width="2"/>
+                <path d="M16.2 16.2 21 21" stroke="rgba(233,238,247,.70)" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              <input class="pairSearch" id="pairSearch" placeholder="Search pairs" autocomplete="off" />
+              <div id="chipArea" style="display:flex;gap:8px;align-items:center;overflow:auto;max-width:50%"></div>
+            </div>
+            <p class="tip">Tip: Pair baru dicari lewat search atau di-browse. Pairs terpilih tampil seperti chip di atas.</p>
+          </div>
+
+          <button class="btn btn-primary" id="browsePairsBtn" type="button">
+            + Browse pairs
+          </button>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-ghost" id="cancelBtn" type="button">Cancel</button>
+        <div class="footer-right">
+          <button class="btn" id="backBtn" type="button">Back</button>
+          <button class="btn btn-primary" id="createBtn" type="button" disabled>Create Trading Plan</button>
+        </div>
+      </div>
+
+      <!-- Browse pairs sheet -->
+      <div class="sheet" id="sheet" aria-hidden="true">
+        <div class="sheetHeader">
+          <div>
+            <h3>Browse pairs</h3>
+            <p>Centang pair yang ingin di-allow. List ini contoh, bukan data live.</p>
+          </div>
+          <button class="iconbtn" id="sheetCloseX" type="button" aria-label="Close browse pairs">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M18 6L6 18M6 6l12 12" stroke="rgba(233,238,247,.85)" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="sheetTools">
+          <div class="sheetSearch">
+            <svg class="searchIcon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="rgba(233,238,247,.70)" stroke-width="2"/>
+              <path d="M16.2 16.2 21 21" stroke="rgba(233,238,247,.70)" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <input id="sheetSearch" placeholder="Search (e.g., BTC, SOL, ETH)" autocomplete="off" />
+          </div>
+          <button class="pill" id="selectTopBtn" type="button">Select top 10</button>
+          <button class="pill" id="clearAllBtn" type="button">Clear</button>
+        </div>
+
+        <div class="pairList" role="region" aria-label="Pairs list">
+          <div class="pairListHeader">
+            <span>Pair</span>
+            <span>Allow</span>
+          </div>
+          <div class="pairItems" id="pairItems"></div>
+        </div>
+
+        <div class="sheetFooter">
+          <div class="count" id="selectedCount">Selected: 0</div>
+          <div style="display:flex;gap:10px">
+            <button class="btn btn-ghost" id="sheetCancel" type="button">Close</button>
+            <button class="btn btn-primary" id="sheetApply" type="button">Apply selection</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+<!-- Modal: Add More Pairs -->
+  <div class="overlay" id="mMore" aria-hidden="true">
+    <div class="modal xs" role="dialog" aria-modal="true" aria-label="Add More Pairs">
+      <div class="modal-h">
+        <div class="t"><span class="dot" aria-hidden="true"></span> Add more pairs</div>
+        <button class="x" type="button" onclick="closeModal('mMore')">✕</button>
+      </div>
+      <div class="modal-b" id="moreBody"></div>
+      <div class="modal-f">
+        <button class="btn" type="button" onclick="closeModal('mMore')">Cancel</button>
+        <button class="btn primary" type="button" onclick="applyAddMorePairs()">Add</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Autotrader Details -->
+  <div class="overlay" id="mAutoDetail" aria-hidden="true">
+    <div class="modal sm" role="dialog" aria-modal="true" aria-label="Autotrader Detail">
+      <div class="modal-h">
+        <div class="t"><span class="dot" aria-hidden="true"></span> Autotrader Detail</div>
+        <button class="x" type="button" onclick="closeModal('mAutoDetail')">✕</button>
+      </div>
+      <div class="modal-b" id="autoDetailBody"></div>
+      <div class="modal-f">
+        <button class="btn" type="button" onclick="closeModal('mAutoDetail')">Close</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
