@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>byScript.io | Profile (Premium UX Revision)</title>
+  <title>byScript.io | Dashboard (Premium UX Revision)</title>
   <link rel="stylesheet" href="css/style.css" />
   <script src="js/data.js" defer></script>
   <script src="js/helpers.js" defer></script>
@@ -23,8 +23,7 @@
       </a>
 
       <nav class="nav" aria-label="Primary">
-        <a href="#">Dashboard</a>
-        <a class="active" href="#">Profile</a>
+        <a class="active" href="#">Dashboard</a>
         <a href="#">Subscription</a>
         <a href="#">Affiliate</a>
         <a href="#">Documentation</a>
@@ -46,11 +45,11 @@
         <div class="card-inner">
           <div class="h-title">
             <span class="dot" aria-hidden="true"></span>
-            <h1>Profile</h1>
+            <h1>Dashboard</h1>
             <span class="pill">edwin ardyanto</span>
           </div>
           <p class="sub">
-            Fokus: kontrol Autotrader, koneksi Exchange, dan Activity yang bisa difilter. Targetnya user cepat paham mana yang jalan, mana yang butuh perhatian.
+            Ringkasan Autotrader, Exchange, dan Activity dengan filter cepat. Bantu kamu melihat apa yang aktif, apa yang berhenti, dan area yang butuh perhatian.
           </p>
           <div class="actions">
             <button class="btn primary" type="button" onclick="openAutotraderWizard()">Add Autotrader</button>
@@ -70,7 +69,7 @@
       </div>
     </section>
 
-    <div class="tabs" role="tablist" aria-label="Profile sections">
+    <div class="tabs" role="tablist" aria-label="Dashboard sections">
       <button class="tab active" role="tab" aria-selected="true" data-tab="autotraders" onclick="switchPanel('autotraders')">Autotraders</button>
       <button class="tab" role="tab" aria-selected="false" data-tab="exchanges" onclick="switchPanel('exchanges')">Exchanges</button>
       <button class="tab" role="tab" aria-selected="false" data-tab="activity" onclick="switchPanel('activity')">Activity</button>
