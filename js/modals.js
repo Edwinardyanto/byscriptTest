@@ -45,5 +45,4 @@
 
   window.openModal = openModal;
   window.closeModal = closeModal;
-  window._refreshModalStack = refreshModalStack;
 })();

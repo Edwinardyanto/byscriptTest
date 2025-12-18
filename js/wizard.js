@@ -475,6 +475,10 @@
       createBtn.disabled = !(okName && okPairs);
     }
 
+    function escapeHtml(s){
+      return String(s).replace(/[&<>"']/g, c=>({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;" }[c]));
+    }
+
     function ensureInited(){
       if (state.inited) return;
       state.inited = true;
