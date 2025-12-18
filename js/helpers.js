@@ -33,10 +33,15 @@
     return s;
   }
 
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g, c=>({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;" }[c]));
+  }
+
   window.$ = $;
   window.$$ = $$;
   window.toast = toast;
   window.badgeForStatus = badgeForStatus;
   window.fmtMoney = fmtMoney;
   window.genCode = genCode;
+  window.escapeHtml = escapeHtml;
 })();
