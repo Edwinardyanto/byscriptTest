@@ -43,15 +43,45 @@
     <section class="grid-header">
       <div class="card">
         <div class="card-inner">
-          <div class="h-title">
-            <span class="dot" aria-hidden="true"></span>
-            <h1>Dashboard</h1>
-            <span class="pill">edwin ardyanto</span>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;align-items:stretch;">
+            <div class="stat" style="background:rgba(0,0,0,.28);box-shadow:var(--shadow2);">
+              <div class="k">PnL Today</div>
+              <div class="v" style="display:flex;align-items:center;gap:8px;">$1,842 <span class="pill accent" style="padding:4px 8px;font-size:11px;font-weight:850;">+3.4%</span></div>
+              <div class="h">Realtime snapshot</div>
+            </div>
+            <div class="stat" style="background:rgba(0,0,0,.28);box-shadow:var(--shadow2);">
+              <div class="k">PnL 7D</div>
+              <div class="v">$12,430</div>
+              <div class="h">Performance weekly</div>
+            </div>
+            <div class="stat" style="background:rgba(0,0,0,.28);box-shadow:var(--shadow2);">
+              <div class="k">PnL 30D</div>
+              <div class="v">$42,120</div>
+              <div class="h">Momentum monthly</div>
+            </div>
+            <div class="stat" style="grid-column: span 2; min-height:110px; background:rgba(0,0,0,.30); box-shadow:var(--shadow2);">
+              <div class="k" style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+                <span>Wallet Balance</span>
+                <span class="pill" style="background:rgba(104,254,29,.12);border-color:rgba(104,254,29,.30);">+$2,150</span>
+              </div>
+              <div class="v" style="margin-top:6px;">$18,420</div>
+              <div class="h" style="margin-top:2px;">Mock trend (static)</div>
+              <div style="margin-top:10px;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:8px;background:rgba(15,22,32,.65);">
+                <svg viewBox="0 0 240 70" role="img" aria-label="Wallet balance trend" style="width:100%;height:70px;">
+                  <defs>
+                    <linearGradient id="wbFill" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="rgba(104,254,29,.25)"></stop>
+                      <stop offset="100%" stop-color="rgba(104,254,29,0)"></stop>
+                    </linearGradient>
+                  </defs>
+                  <path d="M0 55 C30 48 40 30 70 34 C95 38 110 18 140 26 C165 33 180 14 210 20 C228 24 238 16 240 14 L240 70 L0 70 Z" fill="url(#wbFill)" opacity="0.8"></path>
+                  <path d="M0 55 C30 48 40 30 70 34 C95 38 110 18 140 26 C165 33 180 14 210 20 C228 24 238 16 240 14" stroke="var(--accent)" stroke-width="2.4" fill="none" stroke-linecap="round"></path>
+                  <circle cx="210" cy="20" r="3.5" fill="var(--accent)" stroke="rgba(255,255,255,.35)" stroke-width="1"></circle>
+                </svg>
+              </div>
+            </div>
           </div>
-          <p class="sub">
-            Ringkasan Autotrader, Exchange, dan Activity dengan filter cepat. Bantu kamu melihat apa yang aktif, apa yang berhenti, dan area yang butuh perhatian.
-          </p>
-          <div class="actions">
+          <div class="actions" style="margin-top:18px;">
             <button class="btn primary" type="button" onclick="openAutotraderWizard()">Add Autotrader</button>
             <button class="btn" type="button" onclick="openExchangeConnect()">Add Exchange</button>
             <button class="btn danger" type="button" onclick="toast('Open: Security / API Permissions')">Security</button>
