@@ -1,4 +1,3 @@
- (cd "$(git rev-parse --show-toplevel)" && git apply --3way <<'EOF' 
 diff --git a/css/style.css b/css/style.css
 new file mode 100644
 index 0000000000000000000000000000000000000000..d3ba6805261d9cad830d6cf942ad999bb2831a69
@@ -901,6 +900,3 @@ index 0000000000000000000000000000000000000000..d3ba6805261d9cad830d6cf942ad999b
 +    }
 +#mPlan .helper a {color:rgba(233,238,247,.85);text-decoration:none;border-bottom:1px dashed rgba(255,255,255,.28)}
 +#mPlan .helper a:hover {border-bottom-color: rgba(104,254,29,.65)}
- 
-EOF
-)
